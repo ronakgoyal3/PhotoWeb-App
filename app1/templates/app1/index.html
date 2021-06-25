@@ -1,0 +1,30 @@
+{% extends 'app1/base.html'%}
+{% block body%}
+  {% if all_albums %}
+    <h3>Here are all my albums</h3>
+<!--      <ul>-->
+        <div class="allalbums" style="margin:auto;">
+        {% for album in all_albums%}
+<!--          <li><a href="{% url 'app1:detail' album.id %}">{{ album.albumtitle }}</a> </li>-->
+<!--        <li>-->
+          {% if album.Owner == user %}
+          <div class="card" style="width: 21rem; display:inline-block; margin: 20px;">
+            <a href="{% url 'app1:detail' album.id %}"><img src="https://data.whicdn.com/images/322027365/original.jpg?t=1541703413" class="card-img-top" alt="..." ></a>
+            <div class="card-body">
+              <h5 class="card-title">{{ album.albumtitle }}</h5>
+              <p class="card-text">{{ album.Owner }}</p>
+              <a role="button" class="btn btn-primary" href="{% url 'app1:detail' album.id %}">View Photos</a>
+              <form action="{% url 'app1:album-delete' album.id %}" method="post">
+               {% csrf_token %}
+                    <input type="hidden" name="album_id" value="{{ album.id }}"/>
+                  <button type="submit"><span class="fa fa-trash" aria-hidden="true"></span></button>
+              </form>
+            </div>
+          </div>
+<!--        </li>-->
+          {% endif %}
+        {% endfor %}
+          </div>
+<!--      </ul>-->
+  {% endif %}
+{% endblock %}
