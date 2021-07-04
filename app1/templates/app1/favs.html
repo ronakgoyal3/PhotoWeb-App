@@ -1,0 +1,36 @@
+{% extends 'app1/base.html'%}
+{% block body%}
+  {% if all_albums %}
+    <h3>Here are all my Favourite Photos</h3>
+<!--      <ul>-->
+        <div class="allalbums" style="margin:auto;">
+        {% for album in all_albums%}
+<!--          <li><a href="{% url 'app1:detail' album.id %}">{{ album.albumtitle }}</a> </li>-->
+<!--        <li>-->
+          {% if album.Owner == user %}
+          <div class="row">
+                    {% for photo in album.photo_set.all %}
+                        {% if photo.is_favourite%}
+                        <form action="{% url 'app1:fav2' album.id%}" method="post" class="col-lg-6 pl-lg-1 mb-2">
+                          {% csrf_token %}
+                          <div class="">
+                              <input type="hidden" id="photo{{ forloop.counter }}" name="photo" value="{{photo.id}}" />
+
+                              <label for="photo{{forloop.counter}}">
+                                  <img src="{{ photo.Picture }}" alt="" class="img-fluid rounded shadow-sm">
+                                    <button  id="new{{photo.id}}" type="submit" style="position: absolute; right:15px; top:15px; color:red" value="favourite"><span class="fa fa-heart" aria-hidden="true"></span></button>
+
+                              </label>
+                              </div>
+
+                        </form>
+              {% endif %}
+                    {% endfor %}
+                    </div>
+<!--        </li>-->
+          {% endif %}
+        {% endfor %}
+          </div>
+<!--      </ul>-->
+  {% endif %}
+{% endblock %}

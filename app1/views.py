@@ -53,6 +53,12 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Album.objects.all()
 
+class Favview(generic.ListView):
+    template_name = 'app1/favs.html'
+    context_object_name = 'all_albums'
+    def get_queryset(self):
+        return Album.objects.all()
+
 class DetailView(generic.DetailView):
     model = Album
     template_name = 'app1/details.html'
@@ -96,11 +102,26 @@ def favourite(request, album_id):
              'error_message':"no Photo available bro",
         })
     else:
-        selected_photo.is_favourite = True
+        if(selected_photo.is_favourite):
+            selected_photo.is_favourite = False
+        else: selected_photo.is_favourite = True
         selected_photo.save()
         return render(request, 'app1/details.html', {'album': album})
 
 
+def favinfavpage(request, album_id):
+    album= get_object_or_404(Album,pk= album_id)
+    selected_photo = album.photo_set.get(pk=request.POST['photo'])
+    selected_photo.is_favourite = False
+    selected_photo.save()
+    return redirect('app1:favs')
+
+
+def PhotoDelete(request,album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    selected_photo = album.photo_set.get(pk=request.POST['photo_id'])
+    selected_photo.delete()
+    return render(request, 'app1/details.html', {'album': album})
 
 
 
@@ -111,6 +132,7 @@ class AlbumUpdate(UpdateView):
 class AlbumDelete(DeleteView):
     model = Album
     success_url = reverse_lazy('app1:index')
+
     
 
 def register(request):

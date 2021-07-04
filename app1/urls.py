@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 app_name='app1'
 urlpatterns= [
     url(r'^$',views.IndexView.as_view(),name='index'),
+    url(r'^favourites$',views.Favview.as_view(),name='favs'),
     url(r'^(?P<pk>[0-9]+)/$',views.DetailView.as_view(), name='detail'),
     # url(r'^(?P<album_id>[0-9]+)/favourite/$',views.favourite,name='favourite'),
     url(r'album/add/$', views.AlbumCreate.as_view(), name='album-add'),
@@ -16,6 +17,8 @@ urlpatterns= [
     url(r'^logout/$', auth_views.LogoutView.as_view(template_name='app1/logout.html'),name="logout"),
     url(r'album/(?P<pk>[0-9]+)/addphoto/$', views.PhotoCreate.as_view(), name='photo-add'),
     url(r'album/(?P<album_id>[0-9]+)/favourite/$', views.favourite, name='favourite'),
+    url(r'photo/(?P<album_id>[0-9]+)/favourite/$', views.favinfavpage, name='fav2'),
+    url(r'photo/(?P<album_id>[0-9]+)/delete/$', views.PhotoDelete, name='photo-delete'),
 
 
 ]
