@@ -17,7 +17,7 @@
                               <input type="hidden" id="photo{{ forloop.counter }}" name="photo" value="{{photo.id}}" />
 
                               <label for="photo{{forloop.counter}}">
-                                  <img src="{{ photo.Picture }}" alt="" class="img-fluid rounded shadow-sm">
+                                  <img src="{{ photo.Picture.url }}" alt="" class="img-fluid rounded shadow-sm">
                                     <button  id="new{{photo.id}}" type="submit" style="position: absolute; right:15px; top:15px; color:red" value="favourite"><span class="fa fa-heart" aria-hidden="true"></span></button>
 
                               </label>

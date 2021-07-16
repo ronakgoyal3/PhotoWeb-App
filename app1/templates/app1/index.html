@@ -9,7 +9,7 @@
 <!--        <li>-->
           {% if album.Owner == user %}
           <div class="card" style="width: 21rem; display:inline-block; margin: 20px;">
-            <a href="{% url 'app1:detail' album.id %}"><img src="https://data.whicdn.com/images/322027365/original.jpg?t=1541703413" class="card-img-top" alt="..." ></a>
+            <a href="{% url 'app1:detail' album.id %}"><img src='{{ album.Album_logo.url }}' style="width: 21rem;" class="img-resp"/></a>
             <div class="card-body">
               <h5 class="card-title">{{ album.albumtitle }}</h5>
               <p class="card-text">{{ album.Owner }}</p>

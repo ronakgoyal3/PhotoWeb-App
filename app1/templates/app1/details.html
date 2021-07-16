@@ -28,7 +28,7 @@
     background-size: cover;
     background-repeat: no-repeat">
                 <div class="media align-items-end profile-head" style="transform: translateY(5rem)">
-                    <div class="profile mr-3"><img src="{{ album.Album_logo }}" alt="..." width="130" class="rounded mb-2 img-thumbnail"><a href="{% url 'app1:album-update' album.id %}" class="btn btn-outline-dark btn-sm btn-block">Edit Details</a></div>
+                    <div class="profile mr-3"><img src="{{ album.Album_logo.url }}" alt="..." width="130" class="rounded mb-2 img-thumbnail"><a href="{% url 'app1:album-update' album.id %}" class="btn btn-outline-dark btn-sm btn-block">Edit Details</a></div>
                     <div class="media-body mb-5 text-white">
                         <h4 class="mt-0 mb-0">{{ album.albumtitle }}</h4>
                         <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>{{ album.Owner }}</p>
@@ -73,7 +73,7 @@
                               <input type="hidden" id="photo{{ forloop.counter }}" name="photo" value="{{photo.id}}" />
 
                               <label for="photo{{forloop.counter}}">
-                                  <img src="{{ photo.Picture }}" alt="" class="img-fluid rounded shadow-sm">
+                                  <img src="{{ photo.Picture.url }}" alt="" class="img-fluid rounded shadow-sm">
                                     <button  id="new{{photo.id}}" type="submit" style="position: absolute; right:15px; top:15px;" value="favourite"><span class="fa fa-heart" aria-hidden="true"></span></button>
 
                                   {% if photo.is_favourite%}
@@ -95,6 +95,7 @@
                           <button  id="new{{photo.id}}" type="submit" value="deletephoto"><span class="fa fa-trash" aria-hidden="true"></span></button>
 
                         </form>
+                        <a href="{{ photo.Picture.url }}" download><span class="fa fa-trash" aria-hidden="true"></span></a>
                     {% endfor %}
                     </div>
 
